@@ -1,9 +1,10 @@
 import d from "../js/NTechDOM.js";
-import {login} from "../../modules/login.js";
+import { login } from "../../modules/login.js";
 console.log("version", d.version);
 
-d.render("root", login);
+window.location = "#/login";
+ d.render("root", login);
 
 window.closeDiv = (q) => {
   document.querySelector(q).style.display = "none";
-}
+};

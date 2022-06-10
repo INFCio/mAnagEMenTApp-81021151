@@ -18,10 +18,17 @@ const NTechDOM = {
           : [childrens],
       _attributes: attributes,
       _reuse: false,
+      _ichildrens:
+        childrens.constructor.toString().indexOf("Array") >= 0
+          ? childrens
+          : [childrens],
+      _iattributes: {...attributes},
       append(...childrens) {
         this._childrens = this._childrens.concat(childrens);
         if (NTechDOM.rendered && !this._reuse) {
           NTechDOM.rerender(this);
+        } else if (!this._rendered) {
+          this._ichildrens = this._ichildrens.concat(childrens);
         }
         return this;
       },
@@ -32,6 +39,11 @@ const NTechDOM = {
             : [childrens];
         if (NTechDOM.rendered && !this._reuse) {
           NTechDOM.rerender(this);
+        } else if (!this._rendered) {
+          this._ichildrens =
+            childrens.constructor.toString().indexOf("Array") >= 0
+              ? childrens
+              : [childrens];
         }
         return this;
       },
@@ -45,6 +57,11 @@ const NTechDOM = {
           .concat(arr.slice(children + 1, arr.length));
         if (NTechDOM.rendered && !this._reuse) {
           NTechDOM.rerender(this);
+        } else if (!this._rendered) {
+          arr = [...this._ichildrens];
+          this._ichildrens = arr
+            .slice(0, children)
+            .concat(arr.slice(children + 1, arr.length));
         }
         return this;
       },
@@ -57,6 +74,13 @@ const NTechDOM = {
         ];
         if (NTechDOM.rendered && !this._reuse) {
           NTechDOM.rerender(this);
+        } else if (!this._rendered) {
+          arr = [...this._ichildrens];
+          this._ichildrens = [
+            ...arr.slice(0, start),
+            ...children,
+            ...arr.slice(start, arr.length),
+          ];
         }
         return this;
       },
@@ -75,6 +99,19 @@ const NTechDOM = {
         }
         if (NTechDOM.rendered && !this._reuse) {
           NTechDOM.rerender(this);
+        } else if (!this._rendered) {
+          arr = [...this._ichildrens];
+          for (let children = 0; children < arr.length; children++) {
+            if (arr[children].constructor.toString().indexOf("Object") >= 0) {
+              if (arr[children]._node == element._node) {
+                this._ichildrens = arr
+                  .slice(0, children)
+                  .concat(arr.slice(children + 1, arr.length));
+              } else {
+                arr[children].removeElement(element);
+              }
+            }
+          }
         }
         return this;
       },
@@ -86,6 +123,12 @@ const NTechDOM = {
         }
         if (NTechDOM.rendered && !this._reuse) {
           NTechDOM.rerender(this);
+        } else if(!this._rendered){
+          if (this._iattributes[key]) {
+            this._iattributes[key] = [...this._iattributes[key], ...values];
+          } else {
+            this._iattributes[key] = values;
+          }
         }
         return this;
       },
@@ -95,6 +138,10 @@ const NTechDOM = {
         }
         if (NTechDOM.rendered && !this._reuse) {
           NTechDOM.rerender(this);
+        } else if(!this._rendered){
+          for (let x of keys) {
+            delete this._iattributes[x];
+          }
         }
         return this;
       },
@@ -106,6 +153,12 @@ const NTechDOM = {
         }
         if (NTechDOM.rendered && !this._reuse) {
           NTechDOM.rerender(this);
+        } else if(!this._rendered){
+          if (this._iattributes[key]) {
+            this._iattributes[key] = [...values];
+          } else {
+            this._iattributes[key] = values;
+          }
         }
         return this;
       },
@@ -114,6 +167,14 @@ const NTechDOM = {
           this._attributes[key] = [...values];
         } else {
           this._attributes[key] = values;
+        }
+        if(!this._rendered){
+          if (this._iattributes[key]) {
+            this._iattributes[key] = [...values];
+          } else {
+            this._iattributes[key] = values;
+          }
+          console.log("change", this._name, this._iattributes, this._attributes)
         }
         return this;
       },
@@ -128,6 +189,10 @@ const NTechDOM = {
         this._attributes = attributes;
         if (NTechDOM.rendered && !this._reuse) {
           NTechDOM.rerender(this);
+        } else if(!this._rendered){
+          this._iattributes = {...attributes};
+          //console.log(this, this._node)
+          //console.log("set", this._name, this._iattributes, this._attributes, attributes)
         }
         return this;
       },
@@ -153,10 +218,22 @@ const NTechDOM = {
         }
         return this;
       },
+      init() {
+        this._childrens.forEach((value) => {
+          if (value.constructor.toString().indexOf("Object") >= 0) {
+            value.init();
+          }
+        });
+        this._attributes = {...this._iattributes};
+        this._childrens = [...this._ichildrens];
+        this._rendered = false;
+      },
       _render() {
+        //console.log("rander", this._name, this._iattributes, this._attributes)
         let childrens = "";
         this._node = NTechDOM.node++;
         let element = this._name;
+        this._rendered = true;
         this._childrens.forEach((value) => {
           if (value.constructor.toString().indexOf("Object") >= 0) {
             childrens += value._render();
@@ -165,7 +242,6 @@ const NTechDOM = {
           }
         });
         this._attributes.node = [this._node];
-        this._rendered = true;
         let _attributes = this._attributes;
         let attributes = "";
         for (let x in _attributes) {

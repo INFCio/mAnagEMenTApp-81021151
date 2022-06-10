@@ -6,4 +6,5 @@ div._reuse = true;
 for(let i = 1; i <= 5; i++){
   loading.append({...div.setAttribute({class: `rect${i}`})});
 }
+
 export {loading};

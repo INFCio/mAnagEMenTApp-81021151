@@ -2,6 +2,8 @@ import d from "../assets/js/NTechDOM.js";
 import { loading } from "./loading.js";
 import { signup } from "./signup.js";
 import { forget } from "./forget.js";
+import { home } from "./home.js";
+import { pages } from "./pages.js";
 const login = d.createElement("div").setAttribute({ class: "container" });
 
 // header
@@ -70,38 +72,31 @@ form.append(
 main.append(
   error,
   form,
-  d
-    .createElement("div", "", { class: "footer" })
-    .setChildren(
-      d.createElement("div", [
-        "Don't have an account? ",
-        d.createElement("span", "Sign Up", {
-          style: "cursor: pointer",
-          class: "signup",
-        }),
-      ])
-    )
+  d.createElement("div", "", { class: "footer" }).setChildren(
+    d.createElement("div", [
+      "Don't have an account? ",
+      d.createElement("span", "Sign Up", {
+        style: "cursor: pointer",
+        class: "signup",
+      }),
+    ])
+  )
 );
 
 const onload = () => {
   document.querySelector(".container").style.minHeight = window.innerHeight;
+  form.reset();
   document.forms["login-form"].onsubmit = (e) => {
     e.preventDefault();
     loginRequest();
   };
   document.querySelector(".signup").onclick = () => {
     error.changeAttribute("style", "display: none;");
-    d.render("root", loading);
-    setTimeout(() => {
-      d.render("root", signup);
-    }, 500);
+    window.location = "#/signup";
   };
   document.querySelector(".forget").onclick = () => {
     error.changeAttribute("style", "display: none;");
-    d.render("root", loading);
-    setTimeout(() => {
-      d.render("root", forget);
-    }, 500);
+    window.location = "#/forget";
   };
   // input change fuctions
   const inputList = {
@@ -112,6 +107,21 @@ const onload = () => {
     inputList[input].changeAttributeN("value", v.value);
   };
 
+  if (window.hashchange)
+    window.removeEventListener("hashchange", hashchange, false);
+
+  window.hashchange = () => {
+    d.render("root", loading);
+    eval(pages[window.location.hash.toString().replace("#/", "")]).init();
+    setTimeout(() => {
+      d.render(
+        "root",
+        eval(pages[window.location.hash.toString().replace("#/", "")])
+      );
+    }, 500);
+  };
+
+  window.addEventListener("hashchange", hashchange, false);
   window.mNiAc = changeInput;
 };
 login.setCustomFunction(onload);
@@ -148,8 +158,7 @@ const loginRequest = () => {
         error.changeAttribute("style", "display: flex");
         submit.setChildren("Login").removeAttribute("disabled", "style");
       } else if (messege === "success") {
-        //console.log(res);
-        console.log(new Date() - start)
+        window.location = "#/home";
       }
     }
   });

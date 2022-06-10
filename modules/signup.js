@@ -122,12 +122,7 @@ const onload = () => {
     signupRequest();
   };
   document.querySelector(".login").onclick = () => {
-    error.changeAttribute("style", "display: none;");
-    success.changeAttribute("style", "display: none;");
-    d.render("root", loading);
-    setTimeout(() => {
-      d.render("root", login);
-    }, 500);
+    window.location = "#/login";
   };
 
   // input change

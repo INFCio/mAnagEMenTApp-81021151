@@ -103,17 +103,13 @@ main.append(
 const onload = () => {
   document.querySelector(".container").style.minHeight = window.innerHeight;
   form.reset();
+  //forget.init();
   document.forms["forget-form"].onsubmit = (e) => {
     e.preventDefault();
     fogetRequest();
   };
   document.querySelector(".login").onclick = () => {
-    error.changeAttribute("style", "display: none;");
-    success.changeAttribute("style", "display: none;");
-    d.render("root", loading);
-    setTimeout(() => {
-      d.render("root", login);
-    }, 500);
+    window.location = "#/login";
   };
 
   // input change
@@ -141,6 +137,7 @@ const fogetRequest = () => {
     .changeAttribute("style", "background: #94d3a2; color: #eee;");
   error.changeAttribute("style", "display: none;");
   success.changeAttribute("style", "display: none;");
+  console.log(otp._rendered);
   if (otp._rendered) {
     if (
       password.getAttribute("value")[0] !== conPassword.getAttribute("value")[0]
@@ -159,7 +156,7 @@ const fogetRequest = () => {
           type: "4",
           data: JSON.stringify({
             email: email.getAttribute("value")[0],
-            password: email.getAttribute("value")[0],
+            password: password.getAttribute("value")[0],
             otp: otp.getAttribute("value")[0],
           }),
         }
