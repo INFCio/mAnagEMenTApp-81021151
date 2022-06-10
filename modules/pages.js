@@ -3,6 +3,7 @@ const pages = {
   signup: "signup",
   forget: "forget",
   home: "home",
+  logout: "login",
 };
 
 export { pages };

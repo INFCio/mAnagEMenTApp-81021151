@@ -212,3 +212,95 @@ button:hover {
     transform: scaleY(1);
   }
 }
+
+.header{
+    display: flex;
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    background-color: #fcfcfc;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0 2px 6px 2px;
+}
+
+.header div{
+    width: 100%;
+    text-align: right;
+}
+
+.menuBtn{
+    margin-left: 10px;
+}
+
+.logo{
+    height: 53.13px;
+    margin-right: 10px;
+}
+
+.menu{
+  position: fixed;
+  top: 0;
+  left: -110%;
+  z-index: 10;
+  transition: all 0.35s;
+  width: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.nav{
+    width: calc(100% - 250px);
+    height: 100vh;
+    background-color: rgba(0,0,0,.4);
+}
+
+nav{
+    font-size: 18px;
+    width: 250px;
+    max-height: 100vh;
+    height: 100vh;
+    overflow-y: auto;
+    background-color: #f6f8fa;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0 2px 6px 2px;;
+}
+
+.profile{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    /* background-color: #fcfcfc!important; */
+    padding: 4.5px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0 2px 6px 2px;
+}
+
+.profile img{
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: 1px solid #d0d7de;
+}
+
+.profile div{
+    width: 100%;
+    padding-left: 15px;
+    /*cursor: pointer;*/
+}
+
+.menuItems{
+    border-left: 1px solid #d8dee4;
+    margin-top: 2px;
+}
+
+.menuItems div{
+    padding: 10px;
+    border-bottom: 1.5px solid #d0d7de;
+    cursor: pointer;
+    transition: all 0.25s;
+}
+
+.menuItems div:hover, .instraction:hover{
+    background-color: #d8dee4;
+    color: rgb(61, 56, 56);
+}

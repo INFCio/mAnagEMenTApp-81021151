@@ -83,7 +83,10 @@ main.append(
   )
 );
 
+let root = "login";
+
 const onload = () => {
+  root = "login";
   document.querySelector(".container").style.minHeight = window.innerHeight;
   form.reset();
   document.forms["login-form"].onsubmit = (e) => {
@@ -109,20 +112,54 @@ const onload = () => {
 
   if (window.hashchange)
     window.removeEventListener("hashchange", hashchange, false);
-
+  
   window.hashchange = () => {
     d.render("root", loading);
-    eval(pages[window.location.hash.toString().replace("#/", "")]).init();
-    setTimeout(() => {
-      d.render(
-        "root",
-        eval(pages[window.location.hash.toString().replace("#/", "")])
-      );
-    }, 500);
+    if(window.location.hash.toString().replace("#/", "") == "logout"){
+      for(let x in pages) delete pages[x];
+      pages.login = "login";
+      pages.signup = "signup";
+      pages.forget = "forget";
+      root = "login";
+      delete window.localStorage["com.infc.management"];
+    }
+    if(pages[window.location.hash.toString().replace("#/", "")]){
+      eval(pages[window.location.hash.toString().replace("#/", "")]).init();
+      setTimeout(() => {
+        d.render(
+          "root",
+          eval(pages[window.location.hash.toString().replace("#/", "")])
+        );
+      }, 500);
+    } else{
+      eval(pages[root]).init();
+      setTimeout(() => {
+        d.render(
+          "root",
+          eval(pages[root])
+        );
+      }, 500);
+    }
   };
-
   window.addEventListener("hashchange", hashchange, false);
   window.mNiAc = changeInput;
+  const decode = (code) => {
+    let en = [];
+    for (let i = 0; i < code.length; i += 3) {
+      let x = 18 * code[i] + Number(code.substr(i + 1, 2));
+      en.push(x);
+    }
+    en = String.fromCharCode(...en);
+    return (JSON.parse(en.replace(/'/g, '"')));
+  }
+  if(window.localStorage["com.infc.management"]){
+    home._loginData = decode(window.localStorage["com.infc.management"]);
+    delete pages.login;
+    delete pages.signup;
+    delete pages.forget;
+    root = "home";
+    window.location = "#/home"
+  }
 };
 login.setCustomFunction(onload);
 
@@ -158,7 +195,22 @@ const loginRequest = () => {
         error.changeAttribute("style", "display: flex");
         submit.setChildren("Login").removeAttribute("disabled", "style");
       } else if (messege === "success") {
-        window.location = "#/home";
+        const encode = (value) => {
+          value = String(value);
+          let result = "";
+          for (let i = 0; i < value.length; i++) {
+            let ascii = value[i].charCodeAt();
+            result += parseInt(ascii / 18) + String(ascii % 18).padStart(2, "0");
+          }
+          return result;
+        }
+        home._loginData = res;
+        delete pages.login;
+        delete pages.signup;
+        delete pages.forget;
+        root = "home";
+        window.localStorage["com.infc.management"] = encode(JSON.stringify(res));
+        window.location = "#/home"
       }
     }
   });
