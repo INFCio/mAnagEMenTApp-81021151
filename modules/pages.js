@@ -4,6 +4,7 @@ const pages = {
   forget: "forget",
   home: "home",
   logout: "login",
+  ntech: "ntech"
 };
 
 export { pages };

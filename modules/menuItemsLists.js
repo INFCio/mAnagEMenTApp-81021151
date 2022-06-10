@@ -1,8 +1,16 @@
 const menuItemsLists = {
-  "Home" : "home",
-  "Instruction": "instruction",
+  Home: "home",
+  "IT Services Providers": "provider",
   "IT Services List": "itservices",
-  "Logout": "logout",
-}
+  "Tool List": "tool",
+  Templetes: "templetes",
+  Database: "database",
+  "Branch Analysis": "branchs",
+  "NTech Analysis": "ntech",
+  "E-mail List": "emails",
+  Instruction: "instruction",
+  Verification: "verification",
+  Logout: "logout",
+};
 
-export {menuItemsLists}
+export { menuItemsLists };

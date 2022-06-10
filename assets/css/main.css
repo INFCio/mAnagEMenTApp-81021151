@@ -40,7 +40,8 @@ h1 {
 .forget-form,
 .error,
 .success,
-.footer {
+.footer,
+.card {
   padding: 16px;
   border: 1px solid #d8dee4;
   background-color: #f6f8fa;
@@ -57,6 +58,7 @@ h1 {
   border-color: #ff818266;
   flex-direction: row;
   display: none;
+  align-items: center;
 }
 
 .success {
@@ -213,33 +215,50 @@ button:hover {
   }
 }
 
-.header{
-    display: flex;
-    position: fixed;
-    top: 0;
-    z-index: 1;
-    background-color: #fcfcfc;
-    flex-direction: row;
-    align-items: center;
-    width: 100%;
-    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0 2px 6px 2px;
+::-webkit-scrollbar {
+  width: 5px;
 }
 
-.header div{
-    width: 100%;
-    text-align: right;
+::-webkit-scrollbar-track {
+  background: #bbcfeb;
 }
 
-.menuBtn{
-    margin-left: 10px;
+::-webkit-scrollbar-thumb {
+  background: #d8dee4;
 }
 
-.logo{
-    height: 53.13px;
-    margin-right: 10px;
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(136, 185, 240);
 }
 
-.menu{
+.header {
+  display: flex;
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  background-color: #fcfcfc;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0 2px 6px 2px;
+}
+
+.header div {
+  width: 100%;
+  text-align: right;
+}
+
+.menuBtn {
+  margin-left: 10px;
+}
+
+.logo {
+  height: 53.13px;
+  margin-right: 10px;
+}
+
+.menu {
   position: fixed;
   top: 0;
   left: -110%;
@@ -250,57 +269,91 @@ button:hover {
   flex-direction: row-reverse;
 }
 
-.nav{
-    width: calc(100% - 250px);
-    height: 100vh;
-    background-color: rgba(0,0,0,.4);
+.nav {
+  width: calc(100% - 250px);
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
-nav{
-    font-size: 18px;
-    width: 250px;
-    max-height: 100vh;
-    height: 100vh;
-    overflow-y: auto;
-    background-color: #f6f8fa;
-    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0 2px 6px 2px;;
+nav {
+  font-size: 18px;
+  width: 250px;
+  max-height: 100vh;
+  height: 100vh;
+  overflow-y: auto;
+  background-color: #f6f8fa;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0 2px 6px 2px;
 }
 
-.profile{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    /* background-color: #fcfcfc!important; */
-    padding: 4.5px;
-    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0 2px 6px 2px;
+.profile {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  /* background-color: #fcfcfc!important; */
+  padding: 4.5px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0 2px 6px 2px;
 }
 
-.profile img{
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    border: 1px solid #d0d7de;
+.profile img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: 1px solid #d0d7de;
 }
 
-.profile div{
-    width: 100%;
-    padding-left: 15px;
-    /*cursor: pointer;*/
+.profile div {
+  width: 100%;
+  padding-left: 15px;
+  /*cursor: pointer;*/
 }
 
-.menuItems{
-    border-left: 1px solid #d8dee4;
-    margin-top: 2px;
+.menuItems {
+  border-left: 1px solid #d8dee4;
+  margin-top: 2px;
 }
 
-.menuItems div{
-    padding: 10px;
-    border-bottom: 1.5px solid #d0d7de;
-    cursor: pointer;
-    transition: all 0.25s;
+.menuItems div {
+  padding: 10px;
+  border-bottom: 1.5px solid #d0d7de;
+  cursor: pointer;
+  transition: all 0.25s;
 }
 
-.menuItems div:hover, .instraction:hover{
-    background-color: #d8dee4;
-    color: rgb(61, 56, 56);
+.menuItems div:hover,
+.instraction:hover {
+  background-color: #d8dee4;
+  color: rgb(61, 56, 56);
+}
+
+.main {
+  width: 100%;
+  margin: auto;
+  text-align: center;
+  margin-top: 75px;
+}
+
+.container2 {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  flex-wrap: wrap;
+  cursor: pointer;
+}
+
+.card {
+  margin: 16px;
+  font-size: 16px;
+  flex-direction: row;
+  align-items: center;
+  display: flex;
+}
+
+.card:hover {
+  background-color: #d8dee4;
+  color: rgb(61, 56, 56);
 }
