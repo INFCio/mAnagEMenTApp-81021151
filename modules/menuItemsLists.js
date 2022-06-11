@@ -1,6 +1,6 @@
 const menuItemsLists = {
   Home: "home",
-  "IT Services Providers": "provider",
+  "IT Services Providers": "ntech",
   "IT Services List": "itservices",
   "Tool List": "tool",
   Templetes: "templetes",

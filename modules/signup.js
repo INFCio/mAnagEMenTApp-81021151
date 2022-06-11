@@ -114,7 +114,7 @@ main.append(
   )
 );
 
-const onload = () => {
+signup.onload = () => {
   document.querySelector(".container").style.minHeight = window.innerHeight;
   form.reset();
   document.forms["signup-form"].onsubmit = (e) => {
@@ -139,8 +139,6 @@ const onload = () => {
 
   window.mNiAc = changeInput;
 };
-
-signup.setCustomFunction(onload);
 
 signup.append(header, main);
 

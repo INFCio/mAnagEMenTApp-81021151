@@ -85,7 +85,7 @@ main.append(
 
 let root = "login";
 
-const onload = () => {
+login.onload = () => {
   root = "login";
   for (let x in initPages) delete initPages[x];
   initPages.login = "login";
@@ -147,15 +147,9 @@ const onload = () => {
   };
   if (window.localStorage["com.infc.management"]) {
     home._loginData = decode(window.localStorage["com.infc.management"]);
-    initPages = { ...pages };
-    delete initPages.login;
-    delete initPages.signup;
-    delete initPages.forget;
-    root = "home";
-    window.location = "#/homePage" + new Date().getTime();
+    d.render("root", home);
   }
 };
-login.setCustomFunction(onload);
 
 login.append(header, main);
 

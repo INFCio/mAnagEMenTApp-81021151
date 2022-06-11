@@ -342,7 +342,14 @@ nav {
   flex-direction: column;
   text-align: center;
   flex-wrap: wrap;
-  cursor: pointer;
+}
+
+.div{
+  display: flex;
+  width: 334px;
+  margin-top: 20px;
+  justify-content: flex-end;
+  flex-direction: row;
 }
 
 .card {
@@ -351,9 +358,19 @@ nav {
   flex-direction: row;
   align-items: center;
   display: flex;
+  cursor: pointer;
 }
 
 .card:hover {
   background-color: #d8dee4;
   color: rgb(61, 56, 56);
+}
+
+.addBtn{
+  min-width: 100px;
+  width: max-content;
+  border: 1px solid #d8dee4;
+  background-color: #f6f8fa;
+  color: #24292f;
+  font-weight: 500;
 }

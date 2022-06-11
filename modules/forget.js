@@ -100,7 +100,7 @@ main.append(
   )
 );
 
-const onload = () => {
+forget.onload = () => {
   document.querySelector(".container").style.minHeight = window.innerHeight;
   form.reset();
   //forget.init();
@@ -125,8 +125,6 @@ const onload = () => {
 
   window.mNiAc = changeInput;
 };
-
-forget.setCustomFunction(onload);
 
 forget.append(header, main);
 

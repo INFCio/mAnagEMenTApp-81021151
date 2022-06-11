@@ -32,8 +32,8 @@ const menuList = {
   Home: "home",
   Logout: "logout",
 };
-const onload = () => {
-  //console.log("✔️");
+
+home.onload = () => {
   initPages = { ...pages };
   delete initPages.login;
   delete initPages.signup;
@@ -48,31 +48,22 @@ const onload = () => {
     if (window.location.hash.toString().replace("#/", "") == "logout") {
       for (let x in initPages) delete initPages[x];
       initPages.login = "login";
-      initPages.signup = "signup";
-      initPages.forget = "forget";
       root = "login";
       delete window.localStorage["com.infc.management"];
-      console.log()
     }
-    if (initPages[window.location.hash.toString().replace("#/", "")]) {
-      eval(initPages[window.location.hash.toString().replace("#/", "")]).init();
-      setTimeout(() => {
-        d.render(
-          "root",
-          eval(initPages[window.location.hash.toString().replace("#/", "")])
-        );
-      }, 500);
+    if (initPages[window.location.hash.toString().replace("#/", "")] && window.location.hash.toString().replace("#/", "") != "home") {
+      d.render("root", eval(initPages[window.location.hash.toString().replace("#/", "")]).init());
     } else {
-      eval(initPages[root]).init();
       setTimeout(() => {
-        d.render("root", eval(initPages[root]));
+        d.render("root", eval(initPages[root]).init());
       }, 500);
     }
   };
   window.addEventListener("hashchange", hashchange, false);
+  if(initPages[window.location.hash.toString().replace("#/", "")] && window.location.hash.toString().replace("#/", "").indexOf("home") < 0) {
+    d.render("root", eval(initPages[window.location.hash.toString().replace("#/", "")]).init());
+  }
 };
 
 home.append(header, menu, main);
-
-home.setCustomFunction(onload);
 export { home };

@@ -1,9 +1,11 @@
 import d from "../assets/js/NTechDOM.js";
 import { header, menu} from "./header.js";
+import {loading} from "./loading.js";
 const ntech = d.createElement("div");
 const main = d.createElement("main").setAttribute({ class: "main" });
 const title = d.createElement("h1", "NTech Services Providers");
 const container = d.createElement("div").setAttribute({ class: "container2" });
+const addBtn = d.createElement("div", d.createElement("button", "Add Member", {class: "addBtn"}), {class: "div"});
 const card = d
   .createElement("div")
   .setAttribute({ class: "card", onclick: "window.location = '#/ntech'" });
@@ -20,12 +22,17 @@ card.append(
     style: "text-align: center; font-size: 18px; width: 100%;",
   })
 );
-main.append(title, container.append(card));
+main.append(loading);
 
-const onload = () => {
+ntech.onload = () => {
+  setTimeout(function() {
+    main.setChildren([title, container.append(card, addBtn)]);
+    document.querySelector(".addBtn").onclick = () => {
+      console.log(88);
+    }
+  }, 500);
   header.onload(ntech._loginData);
 }
 
-ntech.append(header, menu, main)
-ntech.setCustomFunction(onload);
+ntech.append(header, menu, main);
 export {ntech};
