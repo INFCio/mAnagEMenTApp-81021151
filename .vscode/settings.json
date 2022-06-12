@@ -1,4 +1,5 @@
 {
-    "editor.tabSize": 2,
-    "editor.linkedEditing": true
+  "editor.tabSize": 2,
+  "editor.linkedEditing": true,
+  "editor.formatOnSave": true
 }

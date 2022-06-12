@@ -22,7 +22,7 @@ const NTechDOM = {
         childrens.constructor.toString().indexOf("Array") >= 0
           ? childrens
           : [childrens],
-      _iattributes: {...attributes},
+      _iattributes: { ...attributes },
       append(...childrens) {
         this._childrens = this._childrens.concat(childrens);
         if (this._rendered && !this._reuse) {
@@ -74,7 +74,7 @@ const NTechDOM = {
         ];
         if (this._rendered && !this._reuse) {
           NTechDOM.rerender(this);
-        } else if (!this._rendered, !NTechDOM.rendered) {
+        } else if ((!this._rendered, !NTechDOM.rendered)) {
           arr = [...this._ichildrens];
           this._ichildrens = [
             ...arr.slice(0, start),
@@ -123,7 +123,7 @@ const NTechDOM = {
         }
         if (this._rendered && !this._reuse) {
           NTechDOM.rerender(this);
-        } else if(!this._rendered && !NTechDOM.rendered){
+        } else if (!this._rendered && !NTechDOM.rendered) {
           if (this._iattributes[key]) {
             this._iattributes[key] = [...this._iattributes[key], ...values];
           } else {
@@ -138,7 +138,7 @@ const NTechDOM = {
         }
         if (this._rendered && !this._reuse) {
           NTechDOM.rerender(this);
-        } else if(!this._rendered && !NTechDOM.rendered){
+        } else if (!this._rendered && !NTechDOM.rendered) {
           for (let x of keys) {
             delete this._iattributes[x];
           }
@@ -153,7 +153,7 @@ const NTechDOM = {
         }
         if (this._rendered && !this._reuse) {
           NTechDOM.rerender(this);
-        } else if(!this._rendered && !NTechDOM.rendered){
+        } else if (!this._rendered && !NTechDOM.rendered) {
           if (this._iattributes[key]) {
             this._iattributes[key] = [...values];
           } else {
@@ -168,13 +168,12 @@ const NTechDOM = {
         } else {
           this._attributes[key] = values;
         }
-        if(!this._rendered && !NTechDOM.rendered){
+        if (!this._rendered && !NTechDOM.rendered) {
           if (this._iattributes[key]) {
             this._iattributes[key] = [...values];
           } else {
             this._iattributes[key] = values;
           }
-          console.log("change", this._name, this._iattributes, this._attributes)
         }
         return this;
       },
@@ -189,10 +188,8 @@ const NTechDOM = {
         this._attributes = attributes;
         if (this._rendered && !this._reuse) {
           NTechDOM.rerender(this);
-        } else if(!this._rendered && !NTechDOM.rendered){
-          this._iattributes = {...attributes};
-          //console.log(this, this._node)
-          //console.log("set", this._name, this._iattributes, this._attributes, attributes)
+        } else if (!this._rendered && !NTechDOM.rendered) {
+          this._iattributes = { ...attributes };
         }
         return this;
       },
@@ -205,6 +202,7 @@ const NTechDOM = {
           if (arr[children].constructor.toString().indexOf("Object") >= 0) {
             if (arr[children]._name == "input") {
               arr[children].changeAttribute("value", "");
+              if (arr[children].file) delete arr[children].file;
             } else {
               arr[children].reset();
             }
@@ -218,16 +216,15 @@ const NTechDOM = {
             value.init();
           }
         });
-        this._attributes = {...this._iattributes};
+        this._attributes = { ...this._iattributes };
         this._childrens = [...this._ichildrens];
         this._rendered = false;
         return this;
       },
-      onload(){
+      onload() {
         return 0;
       },
       _render() {
-        //console.log("rander", this._name, this._iattributes, this._attributes)
         let childrens = "";
         this._node = NTechDOM.node++;
         let element = this._name;
@@ -265,12 +262,12 @@ const NTechDOM = {
     if (id) {
       this.id = id;
       this.element = element;
-      if(this.rendered) this.node = 0;
+      if (this.rendered) this.node = 0;
       document.getElementById(id).innerHTML = element
         ? element._render([])
         : element;
       this.rendered = true;
-      if(element.onload.constructor.toString().indexOf("Function") >= 0){
+      if (element.onload.constructor.toString().indexOf("Function") >= 0) {
         element.onload();
       }
     }
@@ -285,7 +282,7 @@ const NTechDOM = {
       node.setAttribute(x, attributes[x].join(" "));
     }
     node.innerHTML = element._rerender();
-    if(element.onload.constructor.toString().indexOf("Function") >= 0){
+    if (element.onload.constructor.toString().indexOf("Function") >= 0) {
       element.onload();
     }
   },
@@ -315,7 +312,7 @@ const NTechDOM = {
   },
   readFiles(...files) {
     return new Promise((resolve, reject) => {
-      data = [];
+      const data = [];
       const _reader = (file) => {
         let reader = new FileReader();
         reader.onload = () => {

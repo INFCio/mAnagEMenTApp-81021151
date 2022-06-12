@@ -3,6 +3,8 @@ import { header, menu } from "./header.js";
 import { loading } from "./loading.js";
 import { pages } from "./pages.js";
 import { ntech } from "./ntech.js";
+import { addmember } from "./addmember.js";
+import { memberinfo } from "./memberinfo.js";
 import { login } from "./login.js";
 
 let initPages = { ...pages };
@@ -14,13 +16,11 @@ const container = d.createElement("div").setAttribute({ class: "container2" });
 const card = d
   .createElement("div")
   .setAttribute({ class: "card", onclick: "window.location = '#/ntech'" });
-const img = d
-  .createElement("img")
-  .setAttribute({
-    src: "./assets/img/ntech-icon.png",
-    class: "logo",
-    style: "border-radius: 6px;",
-  });
+const img = d.createElement("img").setAttribute({
+  src: "./assets/img/ntech-icon.png",
+  class: "logo",
+  style: "border-radius: 6px;",
+});
 card.append(
   img,
   d.createElement("div", "NTech Computer & IT", {
@@ -39,7 +39,8 @@ home.onload = () => {
   delete initPages.signup;
   delete initPages.forget;
   let root = "home";
-  ntech._loginData = { ...home._loginData };
+  for (let x in initPages)
+    eval(initPages[x])._loginData = { ...home._loginData };
   header.onload(home._loginData, menuList);
   if (window.hashchange)
     window.removeEventListener("hashchange", hashchange, false);
@@ -51,17 +52,30 @@ home.onload = () => {
       root = "login";
       delete window.localStorage["com.infc.management"];
     }
-    if (initPages[window.location.hash.toString().replace("#/", "")] && window.location.hash.toString().replace("#/", "") != "home") {
-      d.render("root", eval(initPages[window.location.hash.toString().replace("#/", "")]).init());
+    for (let x in initPages) eval(initPages[x]).init();
+    if (
+      initPages[window.location.hash.toString().replace("#/", "")] &&
+      window.location.hash.toString().replace("#/", "") != "home"
+    ) {
+      d.render(
+        "root",
+        eval(initPages[window.location.hash.toString().replace("#/", "")])
+      );
     } else {
       setTimeout(() => {
-        d.render("root", eval(initPages[root]).init());
+        d.render("root", eval(initPages[root]));
       }, 500);
     }
   };
   window.addEventListener("hashchange", hashchange, false);
-  if(initPages[window.location.hash.toString().replace("#/", "")] && window.location.hash.toString().replace("#/", "").indexOf("home") < 0) {
-    d.render("root", eval(initPages[window.location.hash.toString().replace("#/", "")]).init());
+  if (
+    initPages[window.location.hash.toString().replace("#/", "")] &&
+    window.location.hash.toString().replace("#/", "").indexOf("home") < 0
+  ) {
+    d.render(
+      "root",
+      eval(initPages[window.location.hash.toString().replace("#/", "")]).init()
+    );
   }
 };
 
