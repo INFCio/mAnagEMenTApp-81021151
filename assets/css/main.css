@@ -42,7 +42,8 @@ h1 {
 .success,
 .footer,
 .form,
-.card {
+.card,
+.card2 {
   padding: 16px;
   border: 1px solid #d8dee4;
   background-color: #f6f8fa;
@@ -90,7 +91,7 @@ label {
   color: #0969da;
 }
 
-input,
+input, textarea,
 button {
   margin-top: 5px;
   margin-bottom: 16px;
@@ -102,9 +103,10 @@ button {
   outline: none;
   font-size: 14px;
   transition: all 0.35s;
+  resize: none;
 }
 
-input:focus {
+input:focus, textarea:focus {
   box-shadow: rgba(9, 105, 218, 0.3) 0px 0px 0px 3px;
   border-color: rgb(9, 105, 218);
 }
@@ -346,7 +348,7 @@ nav {
   flex-wrap: wrap;
 }
 
-.div{
+.div {
   display: flex;
   width: 334px;
   margin-top: 20px;
@@ -363,12 +365,22 @@ nav {
   cursor: pointer;
 }
 
-.card:hover {
+.card2 {
+  margin: 16px;
+  font-size: 16px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  cursor: pointer;
+}
+
+.card:hover,
+.card2:hover {
   background-color: #d8dee4;
   color: rgb(61, 56, 56);
 }
 
-.addBtn{
+.addBtn {
   min-width: 100px;
   width: max-content;
   border: 1px solid #d8dee4;

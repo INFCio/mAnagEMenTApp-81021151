@@ -5,7 +5,6 @@ const main = d
   .createElement("main")
   .setAttribute({ class: ["main", "container2"] });
 const title = d.createElement("h1", "Add Services Provider");
-const container = d.createElement("div").setAttribute({ class: "container2" });
 main.append(title);
 
 const error = d.createElement("div", "", { class: "error" });
@@ -101,7 +100,7 @@ const addBtn = d.createElement(
 );
 
 main.append(error, success, form);
-console.log(addmember._loginData?.username);
+
 const addmemberRequest = () => {
   submit
     .setChildren("Processing...")
@@ -160,6 +159,7 @@ const addmemberRequest = () => {
                   );
                   main.append(addBtn);
                   document.querySelector(".addBtn").onclick = () => {
+                    addmember.init();
                     d.render("root", addmember);
                   };
                 });
@@ -175,7 +175,7 @@ const addmemberRequest = () => {
   );
 };
 addmember.onload = () => {
-  header.onload(addmember._loginData);
+  header.onload();
 
   form.reset();
   document.forms["form"].onsubmit = (e) => {

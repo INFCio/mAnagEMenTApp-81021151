@@ -5,6 +5,9 @@ import { pages } from "./pages.js";
 import { ntech } from "./ntech.js";
 import { addmember } from "./addmember.js";
 import { memberinfo } from "./memberinfo.js";
+import { itservices } from "./itservices.js";
+import { category } from "./category.js";
+import { addservice } from "./addservice.js";
 import { login } from "./login.js";
 
 let initPages = { ...pages };
@@ -39,9 +42,8 @@ home.onload = () => {
   delete initPages.signup;
   delete initPages.forget;
   let root = "home";
-  for (let x in initPages)
-    eval(initPages[x])._loginData = { ...home._loginData };
-  header.onload(home._loginData, menuList);
+  header._loginData = { ...home._loginData };
+  header.onload(menuList);
   if (window.hashchange)
     window.removeEventListener("hashchange", hashchange, false);
   window.hashchange = () => {

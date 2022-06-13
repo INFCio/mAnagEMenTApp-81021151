@@ -7,6 +7,9 @@ const pages = {
   ntech: "ntech",
   addmember: "addmember",
   memberinfo: "memberinfo",
+  itservices: "itservices",
+  category: "category",
+  addservice: "addservice",
 };
 
 export { pages };

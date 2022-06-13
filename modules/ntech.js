@@ -78,12 +78,14 @@ ntech.onload = () => {
     }
   ).then((res) => {
     res = JSON.parse(JSON.parse(res).messege);
+    console.log(res);
     if (res.result) {
       const { children, accept } = users(res.data);
       if (res.data[0][0] == "") res.data = [[]];
       if (!main.past) main.past = [[]];
       if (compare(main.past, res.data)) {
-        if (res.data[0][0] != "") {
+        if (res.data[0].length) {
+          console.log(children);
           main.setChildren([title, container.setChildren([addBtn])]);
           container.setChildren(
             children.length != 0 ? children.concat(addBtn) : addBtn
@@ -108,7 +110,7 @@ ntech.onload = () => {
     }
   });
 
-  header.onload(ntech._loginData);
+  header.onload();
 };
 console.log(999);
 ntech.append(header, menu, main);

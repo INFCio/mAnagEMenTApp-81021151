@@ -211,6 +211,7 @@ const NTechDOM = {
         return this;
       },
       init() {
+        this._childrens = [...this._childrens, ...this._ichildrens];
         this._childrens.forEach((value) => {
           if (value.constructor.toString().indexOf("Object") >= 0) {
             value.init();

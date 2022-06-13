@@ -287,7 +287,7 @@ memberinfo.onload = () => {
     window.location = "#/ntech";
     return 0;
   }
-  header.onload(memberinfo._loginData);
+  header.onload();
   infoForm.reset();
   pictureForm.reset();
   let url =
